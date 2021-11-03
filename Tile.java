@@ -18,6 +18,9 @@ public enum Tile {
     SEVEN,
     EIGHT;
 
+    // 0 -> CLEAN, 1 -> ONE, ...
+    public final static Tile[] forNumber = { CLEAN, ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT };
+
     //can only mark hidden tiles(w right click)
     // empty -> flag -> question mark -> empty -> ...
     public Tile mark() {
