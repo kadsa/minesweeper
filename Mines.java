@@ -1,37 +1,42 @@
 import java.util.BitSet;
 import java.util.Random;
 
-public class Mines {
-    public final static int NX = 30;
-    public final static int NY = 16;
-    public final static int NMINES = 99;
+class Mines {
+    public final int tilesCount; //480
+    public final int minesCount; //99
 
-    private final static BitSet field = new BitSet(NX * NY);
+    private final BitSet field;
     
-    public static boolean hasMine(int x, int y){
-        return field.get(x + y * NX);
+    Mines(int tilesCount, int minesCount){
+        this.tilesCount = tilesCount; 
+        this.minesCount = minesCount;
+        
+        field = new BitSet(tilesCount);
     }
 
-    public static boolean isClean(int x, int y){
-        return !hasMine(x, y);
+    public boolean hasMine(int x){
+        return field.get(x);
     }
 
-    public static void putMines() {
+    public boolean isClean(int x){
+        return !hasMine(x);
+    }
+
+    public void putMines() {
         field.clear();
-        field.set(0, NMINES);
+        field.set(0, minesCount);
         shuffle();
     }
 
     /*
         Failed to find an easy way to use Collections.shuffle() on bitset.
     */
-    private static void shuffle() {
-        int len = NX * NY;
+    private void shuffle() {
         Random rnd = new Random();
 
-        for (int i = 0; i < len; i++) {
-            for (int j = i + 1; j < len; j++) {
-                int r = rnd.nextInt(len - j) + j;
+        for (int i = 0; i < tilesCount; i++) {
+            for (int j = i + 1; j < tilesCount; j++) {
+                int r = rnd.nextInt(tilesCount - j) + j;
                 boolean t = field.get(i);
                 field.set(i, field.get(r));
                 field.set(r, t);

@@ -10,16 +10,10 @@ public class Minesweeper {
             var frame = new MainFrame();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-
-            reset();
         });
     }
-
-    public static void reset() {
-        Mines.putMines();
-        Field.brandNew();
-    }
 }
+
 
 class MainFrame extends JFrame {
     public MainFrame() {
@@ -28,7 +22,7 @@ class MainFrame extends JFrame {
         setTitle("minesweeper");
         setResizable(false);
 
-        PlayingField pf = new PlayingField(new ImagesFromOldMinesweeperSprite());
+        PlayingField pf = new PlayingField(new FieldTria(480, 99), new ImagesFromOldMinesweeperSprite());
 
         JPanel pnl = new JPanel();
         pnl.add(pf);

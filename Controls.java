@@ -39,7 +39,7 @@ class Controls extends JPanel{
         btnReset(){
             setText("reset");
             addActionListener(event -> {
-                Minesweeper.reset();
+                pf.field.reset();
                 minesCount.reset();
                 clock.restart();
                 pf.repaint();
@@ -81,7 +81,7 @@ class Controls extends JPanel{
     private class MinesCount extends JLabel{
         MinesCount(){
             setForeground(Color.RED);
-            setText(String.valueOf(Mines.NMINES));
+            setText(String.valueOf(pf.field.getMinesCount()));
             
             //on right mouse clicks on the playing field
             //update shown mines count
@@ -92,7 +92,7 @@ class Controls extends JPanel{
             updateShownMinesCount();   
         }
         void updateShownMinesCount(){
-            int minesLeft = Mines.NMINES - Field.flaggedCount();
+            int minesLeft = pf.field.getMinesCount() - pf.field.flaggedCount();
             minesLeft = minesLeft > 0 ? minesLeft : 0;
           
             setText(String.valueOf(minesLeft));

@@ -4,53 +4,50 @@ public class ImagesFromOldMinesweeperSprite implements ImageForTile {
     public BufferedImage imageFor(Tile tile) {
         switch (tile) {
         case NEW:
-            return TileImages.NEW;
+            return SpriteReader.NEW;
 
         case FLAGGED:
-            return TileImages.FLAGGED;
+            return SpriteReader.FLAGGED;
 
         case QUESTION:
-            return TileImages.QUESTION;
+            return SpriteReader.QUESTION;
 
         case CLEAN:
-            return TileImages.CLEAN;
+            return SpriteReader.CLEAN;
 
         case MINE:
-            return TileImages.MINE;
+            return SpriteReader.MINE;
 
         case BLOWN_UP_MINE:
-            return TileImages.BLOWN_UP_MINE;
+            return SpriteReader.BLOWN_UP_MINE;
 
         case NOT_A_MINE:
-            return TileImages.NOT_A_MINE;
+            return SpriteReader.NOT_A_MINE;
 
         case ONE:
-            return TileImages.ONE;
+            return SpriteReader.ONE;
         case TWO:
-            return TileImages.TWO;
+            return SpriteReader.TWO;
         case THREE:
-            return TileImages.THREE;
+            return SpriteReader.THREE;
         case FOUR:
-            return TileImages.FOUR;
+            return SpriteReader.FOUR;
         case FIVE:
-            return TileImages.FIVE;
+            return SpriteReader.FIVE;
         case SIX:
-            return TileImages.SIX;
+            return SpriteReader.SIX;
         case SEVEN:
-            return TileImages.SEVEN;
+            return SpriteReader.SEVEN;
         case EIGHT:
-            return TileImages.EIGHT;
+            return SpriteReader.EIGHT;
 
         default:
             throw new AssertionError("Unknown tile");
         }
     };
 
-    public int width() {
-        return TileImages.TILE_SIZE;
+    public int size() {
+        return SpriteReader.TILE_SIZE;
     }
 
-    public int height() {
-        return TileImages.TILE_SIZE;
-    }
 }
