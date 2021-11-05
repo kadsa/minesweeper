@@ -7,12 +7,12 @@ public class MinesRect {
     public final static int NMINES = 99;
 
     private final static BitSet field = new BitSet(NX * NY);
-    
-    public static boolean hasMine(int x, int y){
+
+    public static boolean hasMine(int x, int y) {
         return field.get(x + y * NX);
     }
 
-    public static boolean isClean(int x, int y){
+    public static boolean isClean(int x, int y) {
         return !hasMine(x, y);
     }
 
@@ -23,8 +23,8 @@ public class MinesRect {
     }
 
     /*
-        Failed to find an easy way to use Collections.shuffle() on bitset.
-    */
+     * Failed to find an easy way to use Collections.shuffle() on bitset.
+     */
     private static void shuffle() {
         int len = NX * NY;
         Random rnd = new Random();

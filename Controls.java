@@ -34,7 +34,6 @@ class Controls extends JPanel{
         add(Box.createRigidArea(new Dimension(padding, padding)));
     }
 
-
     private class btnReset extends JButton{
         btnReset(){
             setText("reset");

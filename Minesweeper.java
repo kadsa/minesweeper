@@ -14,7 +14,6 @@ public class Minesweeper {
     }
 }
 
-
 class MainFrame extends JFrame {
     public MainFrame() {
 

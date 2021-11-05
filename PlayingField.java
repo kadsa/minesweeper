@@ -49,7 +49,6 @@ class PlayingField extends JComponent {
         }
         */
 
-
         Point[] fm = field.getPoints();
         Point[] p = cc.convert(fm);
         for (int i = 0; i < p.length; i++) {
