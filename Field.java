@@ -2,16 +2,40 @@ import java.util.Set;
 import java.util.HashSet;
 
 public abstract class Field {
+    /*
+        these fields are meant to be initialized in the
+        constructor of the child class
+    */
     protected Mines mines;
     protected Tile[] tiles;
+    protected Point[] shape;
 
+    /*
+        dimensions of the shape, considering we 
+        are building this shape out of squares of size 1x1
+
+        TODO: calc width and height using the shape.
+    */
     public abstract int getWidth();
-
     public abstract int getHeight();
 
-    public abstract Point[] getPoints();
+    /*
+      shapes are built from small squares of size 1
 
-    public void reset() {
+      returns an array of coordinates of top left corner of 
+      each square
+    */
+    public Point[] getShape(){
+        return shape;
+    }
+
+    /*
+        should be called before using mines and Tiles and/or
+        to reset the field.
+
+        usually init() is the last one in the constructor
+    */
+    public void init() {
         mines.putMines();
 
         for (int i = 0; i < tiles.length; i++) {
@@ -27,11 +51,14 @@ public abstract class Field {
         return mines.tilesCount;
     }
 
+    /*
+        answers the question: which tile did I click?
+    */
     public int insideTile(float x, float y) {
-        Point[] points = getPoints();
-        for (int i = 0; i < points.length; i++) {
-            float x0 = points[i].x;
-            float y0 = points[i].y;
+        Point[] shape = getShape();
+        for (int i = 0; i < shape.length; i++) {
+            float x0 = shape[i].x;
+            float y0 = shape[i].y;
             float x1 = x0 + 1;
             float y1 = y0 + 1;
 
@@ -59,11 +86,11 @@ public abstract class Field {
         if (tiles[nTile].isOpen())
             return;
 
-        Point[] points = getPoints();
+        Point[] points = getShape();
         float centerX = points[nTile].x + 0.5f;
         float centerY = points[nTile].y + 0.5f;
 
-        // from the center of tile probe 8 ways
+        // from the center of the tile probe 8 ways
         // up, down, left, right
         // upleft, upright, downright, downleft
         Set<Integer> tilesAround = new HashSet<>();

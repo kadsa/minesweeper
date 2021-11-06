@@ -38,7 +38,7 @@ class Controls extends JPanel{
         btnReset(){
             setText("reset");
             addActionListener(event -> {
-                pf.field.reset();
+                pf.field.init();
                 minesCount.reset();
                 clock.restart();
                 pf.repaint();

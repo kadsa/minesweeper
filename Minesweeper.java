@@ -2,6 +2,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.event.MouseInputAdapter;
 
 public class Minesweeper {
@@ -21,9 +23,12 @@ class MainFrame extends JFrame {
         setTitle("minesweeper");
         setResizable(false);
 
-        PlayingField pf = new PlayingField(new FieldTria(480, 99), new ImagesFromOldMinesweeperSprite());
+        PlayingField pf = new PlayingField(new FieldTriangle(480, 99), new ImagesFromOldMinesweeperSprite());
+        //PlayingField pf = new PlayingField(new FieldCircle(500, 100), new ImagesFromOldMinesweeperSprite());
+        //PlayingField pf = new PlayingField(new FieldRectangle(30, 16, 99), new ImagesFromOldMinesweeperSprite());
 
         JPanel pnl = new JPanel();
+        pnl.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
         pnl.add(pf);
         add(pnl, BorderLayout.WEST);
 

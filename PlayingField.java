@@ -19,38 +19,21 @@ class PlayingField extends JComponent {
         this.imageForTile = imageForTile;
         this.isize = imageForTile.size();
 
-        int x0 = padding; int y0 = padding;
-        //this.cc = new CoordConverter(x0, y0, MinesRect.NX, MinesRect.NY, isize);
-        this.cc = new CoordConverter(field, x0, y0, 0, 0, isize);
+        this.cc = new CoordConverter(field, isize);
 
         this.addMouseListener(new MouseHandler());
     }
 
     @Override
     public Dimension getPreferredSize(){
-
-        /*
-        int imagesWidth = isize * MinesRect.NX;
-        int imagesHeight = isize * MinesRect.NY;
-        
-        return new Dimension(imagesWidth + 2 * padding, imagesHeight + 2 * padding);
-        */
         return new Dimension(cc.getWidth() + 2 * padding, cc.getHeight() + 2 * padding);
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        int x0 = padding; int y0 = padding;
-        /*
-        for (int i = 0; i < MinesRect.NX; i++) {
-            for (int j = 0; j < MinesRect.NY; j++) {
-                g.drawImage(imageForTile.imageFor(FieldRect.get(i, j)), x0 + i * iwidth, y0 + j * iheight, null);
-            }
-        }
-        */
-
-        Point[] fm = field.getPoints();
-        Point[] p = cc.convert(fm);
+       
+        Point[] p = cc.transform(field.getShape());
+        
         for (int i = 0; i < p.length; i++) {
             g.drawImage(imageForTile.imageFor(field.get(i)), (int)p[i].x, (int)p[i].y, null);
         }
@@ -62,7 +45,6 @@ class PlayingField extends JComponent {
             java.awt.Point p = event.getPoint();
             int mouseX = (int) p.getX();
             int mouseY = (int) p.getY();
-           // TilePosition tp = cc.tile(mouseX, mouseY);
 
             int nTile = cc.insideTile(mouseX, mouseY);
             if (nTile < 0)
@@ -72,12 +54,7 @@ class PlayingField extends JComponent {
                 field.open(nTile);
             else
                 field.mark(nTile);
-            /*
-            if (event.getButton() == MouseEvent.BUTTON1)
-                FieldRect.open(tp);
-            else
-                FieldRect.mark(tp);
-*/
+
             event.getComponent().repaint();
         }
     }
