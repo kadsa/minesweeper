@@ -9,7 +9,7 @@ public class Triangle extends Field{
     public final static String iconPath = "assets/triangle.png";
     private final int edgeLen;
    
-    Triangle(int tilesCount, int minesCount){
+    public Triangle(int tilesCount, int minesCount){
         
         edgeLen = calcEdge(tilesCount);
         int properTilesCount = ((edgeLen + 1) * edgeLen) / 2;
@@ -46,10 +46,6 @@ public class Triangle extends Field{
     @Override
     public int getHeight(){
         return edgeLen;
-    }
-
-    public static String iconPath(){
-        return "assets/triangle.png";
     }
 
     private Point[] buildTriangle(){

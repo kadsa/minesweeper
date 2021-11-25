@@ -35,7 +35,7 @@ public class ShapesCollector {
         return childrenOf(Field.class);
     }
 
-    private Field makeAField(Class<?> fieldClass, int tilesCount, int minesCount) {
+    public static Field makeAField(Class<?> fieldClass, int tilesCount, int minesCount) {
         try {
             Constructor ctor = fieldClass.getConstructor(int.class, int.class);
             

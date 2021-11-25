@@ -49,8 +49,4 @@ public class Rectangle extends Field{
     public int getWidth(){return width;}
     @Override
     public int getHeight(){return height;}
-   
-    /*public static String iconName(){
-        return "assets/rectangle.png";
-    }*/
 }

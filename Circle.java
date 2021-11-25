@@ -9,7 +9,7 @@ public class Circle extends Field{
     public final static String iconPath = "assets/circle.png";
     private final int diameter;
    
-    Circle(int tilesCount, int minesCount){
+    public Circle(int tilesCount, int minesCount){
         
         diameter = calcDiameter(tilesCount);
         
@@ -39,10 +39,6 @@ public class Circle extends Field{
     @Override
     public int getHeight(){
         return diameter;
-    }
-
-    public static String iconName(){
-        return "assets/circle.png";
     }
 
     private Point[] buildCircle(){

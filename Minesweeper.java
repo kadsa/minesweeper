@@ -20,45 +20,58 @@ public class Minesweeper {
 
 class MainFrame extends JFrame {
     private SettingsDialog settingsDialog = null;
+    private  JPanel pnlField;
+    private  JPanel pnlControls;
+    public Settings settings;
 
     public MainFrame() {
 
         setIconImage(new ImageIcon("assets/naval-mine.png").getImage());
         setTitle("minesweeper");
-        setResizable(false);
+        setResizable(false);    
 
-      /*  Settings settings = new Settings();
-        Field f = settings.makeAField();
-        
-
-        PlayingField pf = new PlayingField(f, new ImagesFromOldMinesweeperSprite());*/
-        //PlayingField pf = new PlayingField(new FieldTriangle(310, 2), new ImagesFromOldMinesweeperSprite());
-        PlayingField pf = new PlayingField(new Circle(500, 100), new ImagesFromOldMinesweeperSprite());
-        //PlayingField pf = new PlayingField(new FieldRectangle(30, 16, 99), new ImagesFromOldMinesweeperSprite());
-
-        JPanel pnl = new JPanel();
-        pnl.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
-        pnl.add(pf);
-        add(pnl, BorderLayout.WEST);
-
-        
-        JPanel pnl2 = new JPanel(new BorderLayout());
-        //
-        pnl2.add(new Controls(pf), BorderLayout.NORTH);
-
-        pnl2.add(new btnSettings(), BorderLayout.SOUTH);
-        
-        //
-        add(pnl2, BorderLayout.EAST);
-
-        pack();
+        applySettings(new Settings());
 
         // top left on the screen on xfce linux, don't like it
         // setLocationByPlatform(true);
 
         // center on the screen
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setLocation((screenSize.width - getWidth()) / 2, (screenSize.height - getHeight()) / 2);
+        setLocation((screenSize.width - getWidth()) / 2, (screenSize.height - getHeight()) / 2); 
+    }
+
+    public void applySettings(Settings settings){
+        this.settings = settings;
+
+        if (pnlField != null)
+            remove(pnlField);
+        
+        if (pnlControls != null)
+            remove(pnlControls);
+
+        setResizable(true);    
+
+        Field f = ShapesCollector.makeAField(settings.cls, settings.tilesCount, settings.minesCount);
+
+        PlayingField pf = new PlayingField(f, new ImagesFromOldMinesweeperSprite());
+
+        pnlField = new JPanel();
+        pnlField.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+        pnlField.add(pf);
+        add(pnlField, BorderLayout.WEST);
+        
+        pnlControls = new JPanel(new BorderLayout());
+        //
+        pnlControls.add(new Controls(pf), BorderLayout.NORTH);
+
+        pnlControls.add(new btnSettings(), BorderLayout.SOUTH);
+        
+        //
+        add(pnlControls, BorderLayout.EAST);
+
+        pack();
+        
+        setResizable(false);
     }
 
     private class btnSettings extends JButton{

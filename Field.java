@@ -30,7 +30,7 @@ public abstract class Field {
     /*
       shapes are built from small squares of size 1
 
-      return an array of coordinates of top left corner of 
+      return an array of coordinates of the top left corner of 
       each square
     */
     public Point[] getShape(){
