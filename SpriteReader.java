@@ -1,4 +1,6 @@
 import javax.imageio.ImageIO;
+
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +13,8 @@ public class SpriteReader {
 
     static {
         try {
-            spriteSheet = ImageIO.read(new File(sheetName));
-        } catch (IOException e) {
+            spriteSheet = ImageIO.read(SpriteReader.class.getResourceAsStream(sheetName));
+        } catch (Exception e) {  
             e.printStackTrace();
         }
     }

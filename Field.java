@@ -1,7 +1,15 @@
 import java.util.Set;
+import java.util.stream.Stream;
 import java.util.HashSet;
+import java.util.Arrays;
+import java.util.stream.*;
 
 public abstract class Field {
+    //icon for a settings panel
+    //should be redefined in the children
+    public static final String iconPath = "assets/hexa.png";
+    
+    private boolean blownUp;
     /*
         these fields are meant to be initialized in the
         constructor of the child class
@@ -14,7 +22,7 @@ public abstract class Field {
         dimensions of the shape, considering we 
         are building this shape out of squares of size 1x1
 
-        TODO: calc width and height using the shape.
+        TODO: calc width and height using the shape given.
     */
     public abstract int getWidth();
     public abstract int getHeight();
@@ -22,7 +30,7 @@ public abstract class Field {
     /*
       shapes are built from small squares of size 1
 
-      returns an array of coordinates of top left corner of 
+      return an array of coordinates of top left corner of 
       each square
     */
     public Point[] getShape(){
@@ -33,7 +41,7 @@ public abstract class Field {
         should be called before using mines and Tiles and/or
         to reset the field.
 
-        usually init() is the last one in the constructor
+        usually init() is the last call in the constructor
     */
     public void init() {
         mines.putMines();
@@ -41,16 +49,39 @@ public abstract class Field {
         for (int i = 0; i < tiles.length; i++) {
             tiles[i] = Tile.NEW;
         }
+
+        blownUp = false;
     };
 
     public int getMinesCount() {
         return mines.minesCount;
     }
 
-    public int getTilesCount() {
+    public int tilesCount() {
         return mines.tilesCount;
     }
-
+/*
+    public static String iconPath(){
+        return "assets/hexa.png";
+    }
+    /*
+    public static String shapeName(){
+        return "need a name for the shape here";
+    }*/
+    public int openCount(){
+        return (int)Arrays.stream(tiles).filter(tile -> tile.isOpen()).count();
+    }
+    
+    public boolean isBlownUp(){
+        return blownUp;
+    }
+    public boolean isDemined(){
+        if (blownUp)
+            return false;
+        else
+            return tilesCount() == (openCount() + flaggedCount());
+    }
+    
     /*
         answers the question: which tile did I click?
     */
@@ -121,6 +152,8 @@ public abstract class Field {
     }
 
     private void blowUp() {
+        blownUp = true;
+
         for (int i = 0; i < tiles.length; i++) {
             if (tiles[i].isOpen())
                 continue;
@@ -139,7 +172,7 @@ public abstract class Field {
     public void openAll() {
         for (int i = 0; i < tiles.length; i++) {
             if (mines.hasMine(i))
-                tiles[i] = Tile.BLOWN_UP_MINE;
+                tiles[i] = Tile.MINE;
             else
                 open(i);
         }

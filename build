@@ -1,0 +1,2 @@
+javac @toCompile
+jar cvfe Minesweeper.jar Minesweeper *.class assets

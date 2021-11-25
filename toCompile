@@ -6,10 +6,13 @@ ImagesFromOldMinesweeperSprite.java
 
 Mines.java
 Field.java
-FieldCircle.java
-FieldRectangle.java
-FieldTriangle.java
+Circle.java
+Rectangle.java
+Triangle.java
 CoordConverter.java
 Controls.java
 PlayingField.java
+ShapesCollector.java
+Settings.java
+SettingsDialog.java
 Minesweeper.java

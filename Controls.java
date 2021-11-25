@@ -16,27 +16,34 @@ class Controls extends JPanel{
         this.pf = pf;
         
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        
+        //add(Box.createVerticalStrut(padding));
         add(Box.createRigidArea(new Dimension(padding, padding)));
         
         minesCount = new MinesCount();
         add(minesCount);
     
-        add(Box.createVerticalGlue());
+        add(Box.createRigidArea(new Dimension(padding, padding)));
+       // add(Box.createVerticalGlue());
         
         clock = new Clock();
         add(clock);
 
-        add(Box.createVerticalGlue());
+        //add(Box.createVerticalGlue());
+        add(Box.createRigidArea(new Dimension(padding, padding)));
         
-        add(new btnReset());
+        add(new btnNew());
+
+       // add(Box.createVerticalGlue());
+        //add(Box.createRigidArea(new Dimension(padding, padding)));
+
+      //  add(new btnSettings());
 
         add(Box.createRigidArea(new Dimension(padding, padding)));
     }
 
-    private class btnReset extends JButton{
-        btnReset(){
-            setText("reset");
+    private class btnNew extends JButton{
+        btnNew(){
+            setText("new");
             addActionListener(event -> {
                 pf.field.init();
                 minesCount.reset();
@@ -66,6 +73,10 @@ class Controls extends JPanel{
             timer.restart();
         }
 
+        void stop(){
+            timer.stop();
+        }
+
         private void updateShownTime(){
             long minutes = elapsed / 60L;
             long seconds = elapsed % 60L;
@@ -83,7 +94,7 @@ class Controls extends JPanel{
             setText(String.valueOf(pf.field.getMinesCount()));
             
             //on right mouse clicks on the playing field
-            //update shown mines count
+            //update shown mines count and check if the game is over
             pf.addMouseListener(new MouseHandler());
         }
 
@@ -93,16 +104,26 @@ class Controls extends JPanel{
         void updateShownMinesCount(){
             int minesLeft = pf.field.getMinesCount() - pf.field.flaggedCount();
             minesLeft = minesLeft > 0 ? minesLeft : 0;
-          
+            
             setText(String.valueOf(minesLeft));
         }
+
         private class MouseHandler extends MouseInputAdapter{
             @Override
             public void mouseClicked(MouseEvent event) {
                 // == MouseEvent.BUTTON2 doesnt pick up a right click!?
                 if (event.getButton() != MouseEvent.BUTTON1)    
                     updateShownMinesCount();
+
+                if (pf.field.isDemined() || pf.field.isBlownUp()){
+                    clock.stop();
+                   
+                    if (pf.field.isDemined())
+                        pf.field.openAll();
+                }
             }   
         }
     }
+
+    
 }
